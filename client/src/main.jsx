@@ -3,11 +3,14 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import "symbol-observable";
 
-import Home from "./pages/Home";
-import Page404 from "./pages/Page404";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Home from "./pages/Home.jsx";
+import Page404 from "./pages/Page404.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import LostItems from "./pages/lostitems.jsx";
+import FoundItems from "./pages/founditems.jsx";
+//import Profile from "./pages/profile.jsx";
 import App from "./App.jsx";
 
 const router = createBrowserRouter([
@@ -31,6 +34,18 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/lostitems",
+        element: <LostItems />,
+      },
+      {
+        path: "/founditems",
+        element: <FoundItems />,
+      },
+      {
+        path: "*",
+        element: <Page404 />,
       },
     ],
   },
