@@ -1,3 +1,100 @@
+body {
+  font-family: monospace;
+  font-size: 16px;
+  background-image: linear-gradient(180deg, red, yellow);
+  height: 1000px;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  color: black;
+  padding: 10px;
+  align-items: center;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#live:before {
+    animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+  }
+  @keyframes blinker {  
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+.live-interactive-hub {
+  background-image: url("./Images/SUNSHINY.png");
+  font-size: large;
+  text-align: center;
+  color: black;
+  height: 300px;
+  width: 771px;
+  margin-left: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px 10px yellow;
+  font-weight: bolder;
+}
+
+#tagLine {
+  text-align: center;
+  color: black;
+}
+
+.searchBar {
+  color: black;
+  text-align:right;
+  margin: 0;
+  width: 500px;
+  margin: 4px auto;
+  text-align: center;
+  display: inline-block;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 217, 0);
+  color: whitesmoke;
+  box-shadow: 0px 0px 30px 30px red;
+  -webkit-box-shadow: inset 0px 0px 22px 4px rgba(255,0,0,1);
+  -moz-box-shadow: inset 0px 0px 22px 4px rgba(255,0,0,1);
+  box-shadow: inset 0px 0px 22px 4px rgba(255,0,0,1);
+}
+
+.inputStyle {
+  background-color: black;
+  color: white;
+  width: 75%;
+  height: 25px;
+}
+
+#button {
+  background-color: black;
+  color: whitesmoke;
+}
+
+.inputDiv {
+  width: 75%;
+  margin-left: -10%;
+}
+
+.recent {
+  color: black;
+  text-align: center;
+}
+
+.results {
+  color: black;
+  text-align: center;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -341,4 +438,4 @@ template {
 =================
 END NORMALIZE CSS
 =================
-*/
+*/ */
