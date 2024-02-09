@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import AuthServices from "../utils/auth";
+import AuthServices from "../../utils/auth";
 import { useSelector } from "react-redux";
-import { getUser } from "../redux/slices/userSlice";
+import { getUser } from "../../redux/slices/userSlice";
 
 const styles = {
   container: {

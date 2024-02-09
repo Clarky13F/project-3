@@ -1,8 +1,9 @@
+// user profile defined here to 
 const typeDefs = `
 
   scalar Date
 
-  type User {
+  type Profile {
     _id: ID!
     firstName: String
     lastName: String
@@ -22,8 +23,10 @@ const typeDefs = `
   }
 
   type Mutation {
-    addUser(firstName: String, lastName: String, email: String!, password: String!): Auth
-    loginUser(email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    loginUser(_id: ID!, email: String!, password: String!): Auth
+    deleteUser(_id: ID!): Auth
+    logoutUser(_id: ID!, email: String!, password: String!): Auth
   }
 `;
 
