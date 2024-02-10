@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 const User = require('./User');
 const Post = require('./Post');
 
 module.exports = { User, Post };
-=======
 const mongoose = require( 'mongoose' );
 const User = require('./User.js')
 // const User = model('User', userSchema);
@@ -47,4 +45,3 @@ const userSchema = new mongoose.Schema(
     );
 
 module.exports = { User };
->>>>>>> 605a7808179066a959656531774ca08982ccd00a
