@@ -34,10 +34,10 @@ export default function SignUp() {
   const { isAuthenticated } = useSelector(getUser());
 
   const [formState, setFormState] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: "first",
+    lastName: "last",
+    email: "first_last@gmail.com",
+    password: "123",
   });
 
   const handleChange = (event) => {
@@ -59,7 +59,20 @@ export default function SignUp() {
 
       AuthService.login(data.addUser.token);
     } catch (e) {
-      console.error(e);
+
+      if (error?.graphQLErrors) {
+        const userInputError = error.graphQLErrors.find(
+          (err) => err.extensions.code === "BAD_USER_INPUT"
+        );
+
+        if (userInputError) {
+          //console.error('User input error:', userInputError.message);
+        } else {
+          console.error('Other GraphQL error:', error.message);
+        }
+      } else {
+        //console.error(e);
+      }
     }
   };
 
