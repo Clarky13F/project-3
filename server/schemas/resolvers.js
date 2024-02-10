@@ -1,5 +1,5 @@
-const { User } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { User, Post } = require('../models');
+const { signToken, AuthenticationError, UserInputError } = require('../utils/auth');
 const { dateScalar } = require('./scalar');
 
 const resolvers = {
@@ -11,6 +11,9 @@ const resolvers = {
       }
       return await User.findById(context.user._id)
     },
+    getAllPosts: async () => {
+      return await Post.find().populate('user', 'email');
+    },
   },
   Mutation: {
     addUser: async (parent, argObj) => {
@@ -19,8 +22,7 @@ const resolvers = {
         const token = signToken(user);
         return { token, user };
       } catch (err) {
-        console.log(err);
-        throw UserInputError
+        throw UserInputError;
       }
     },
     loginUser: async (parent, { email, password }) => {
@@ -39,7 +41,38 @@ const resolvers = {
 
       return { token, user };
     },
-  }
+    createPost: async (parent, { concertName, message, image }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+
+      try {
+        const user = await User.findById(context.user._id);
+
+        const post = await Post.create({
+          concertName,
+          message,
+          image,
+          user: user._id,
+        });
+
+        const populatedPost = await Post.findById(post._id).populate('user', 'email');
+
+        return {
+          _id: populatedPost._id,
+          concertName: populatedPost.concertName,
+          message: populatedPost.message,
+          image: populatedPost.image,
+          user: populatedPost.user,
+          userEmail: populatedPost.user.email,
+        };
+
+      } catch (err) {
+        console.error(err);
+        throw UserInputError;
+      }
+    },
+  },
 };
 
 module.exports = resolvers;

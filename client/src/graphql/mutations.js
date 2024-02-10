@@ -31,3 +31,33 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const GET_ALL_POSTS = gql`
+  query GetAllPosts {
+    getAllPosts {
+      _id
+      concertName
+      message
+      image
+      user {
+        _id
+        email
+      }
+    }
+  }
+`;
+
+export const CREATE_POST_MUTATION = gql`
+  mutation CreatePost($concertName: String!, $message: String!, $image: String!) {
+    createPost(concertName: $concertName, message: $message, image: $image) {
+      _id
+      concertName
+      message
+      image
+      user {
+        _id
+        email
+      }
+    }
+  }
+`;
