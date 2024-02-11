@@ -11,4 +11,3 @@ const reportWebVitals = onPerfEntry => {
 };
 
 export default reportWebVitals;
-// dunno where this ^ code came from ???? React, I gather
