@@ -3,9 +3,9 @@
 // The model allows you to perform operations on the collection. making it easier to work with Mongodb in your application.
 // The schema is a blueprint that describes the structure and attributes of the documents in the collection.
 // Schema defines the fields, their types, validation, rules, default values and other properties. Once you have a schema, you can create a model using mongoose.
-
+const mongoose = require('mongoose');
 const { connect, connection } = require('mongoose');
-const { mongo, mongoose } = require ();
+// const { mongoose } = require ('db');
 const db = mongoose.connection;
 
 connect('mongodb://127.0.0.1:27017/developersApplications');

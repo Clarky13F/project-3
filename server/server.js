@@ -107,4 +107,4 @@ app.get('/all-users', async (req, res) =>{
 startApolloServer();
 
 // mongodb://atlas-sql-65c1bcc7075b3c6b19797c62-unhpq.a.query.mongodb.net/Interactive:Live?ssl=true&authSource=admin
-// mongodb://localhost:27017
+// mongodb://localhost:3000/

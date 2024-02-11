@@ -18,6 +18,10 @@ const userSchema = new Schema(
       type: String,
       trim: true,
     },
+    userID: {
+      type: String,
+      trim: true,
+    },
     password: {
       type: String,
       required: true,

@@ -4,9 +4,10 @@ import { ADD_USER } from "../graphql/mutations";
 import { useSelector } from "react-redux";
 import { getUser } from "../redux/slices/userSlice";
 import { Navigate } from "react-router-dom";
-
-import Page from "../components/Page";
-import AuthService from "../utils/auth";
+import Auth from '../components/Auth.jsx';
+import Footer from '../components/Footer.jsx';
+import Header from '../components/Header.jsx';
+import Navbar from '../components/Navbar.jsx';
 
 const styles = {
   form: {
@@ -21,7 +22,7 @@ const styles = {
 
 const headContent = (
   <>
-    <title>Change Me! - Sign Up</title>
+    <title className="SignUp">Sign Up Here !</title>
     <meta
       name="description"
       content="Sign Up page for Project-3 Starter Code."
@@ -37,6 +38,7 @@ export default function SignUp() {
     firstName: "first",
     lastName: "last",
     email: "first_last@gmail.com",
+    userID: "userID",
     password: "123",
   });
 
@@ -102,6 +104,13 @@ export default function SignUp() {
           placeholder="Email"
           name="email"
           type="email"
+          value={formState.email}
+          onChange={handleChange}
+        />
+        <input
+          placeholder="userID"
+          name="userID"
+          type="userID"
           value={formState.email}
           onChange={handleChange}
         />

@@ -2,19 +2,19 @@ import { ReactDOM } from 'react-dom/client';
 import { App } from './App.jsx';
 import { db } from './client/server/config/connection.js';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import { styles } from './client/src/2fly.css';
+import './2fly.css';
 import { User } = require('./models/User.js');
 import { mongoose } from 'mongoose';
-import { connection } from 'mongodb://127.0.0.1:27017/developersApplications';
+import { connection } from 'mongodb://127.0.0.1:3000/developersApplications';
 import { User } from './server/models/User';
 import { React } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-const client = new ApolloClient({
-uri: 'https://flyby-router-demo.herokuapp.com/',
-cache: new InMemoryCache(),
-});
+// const client = new ApolloClient({
+// uri: 'https://flyby-router-demo.herokuapp.com/',
+// cache: new InMemoryCache(),
+// });
 
 var db = mongoose.createConnection('mongodb://127.0.0.1:27017/project-3-starter-code');
 console.log(client.connection === mongoose.connection)
@@ -52,19 +52,28 @@ const router = createBrowserRouter([
         children: [
         {
             index: true,
+            path: "./Home.jsx",
             element: <Home />,
         },
         {
-            path: "/dashboard",
+            path: "./Dashboard.jsx",
             element: <Dashboard />,
         },
         {
-            path: "/login",
+            path: "./About.jsx",
+            element: <About />,
+        },
+        {
+            path: "./Login.jsx",
             element: <Login />,
         },
         {
-            path: "/signup",
+            path: "./SignUp.jsx",
             element: <SignUp />,
+        },
+        {
+            path: "./Profile.jsx",
+            element: <Profile />,
         },
         ],
     },

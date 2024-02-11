@@ -1,0 +1,11 @@
+display: flex;
+flex-wrap: wrap;
+flex-direction: grid;
+justify-content:center;
+align-items: center;
+margin: 0px;
+padding: 10px;
+display: grid;
+grid-template-columns: 20% 20% 20% 20% 20%;
+grid-template-rows: auto;
+align-items: center;

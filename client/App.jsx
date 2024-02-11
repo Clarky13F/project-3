@@ -4,8 +4,9 @@ import "./App.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 // import { ApolloProvider } from '@apollo/react-hooks';
 // import Outlet from 'react-router-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Auth, Footer, Header, Page }  from './src/components/UI/Auth.jsx';
+import client from './apollo'
+const mongoose = require('mongoose');
 
 // import { useQuery, gql } from '@apollo/client';
 // Import everything needed to use the `useQuery` hook [on line abv]
@@ -32,6 +33,38 @@ function App() {
     );
 }
 
+mongoose.connect('mongodb://localhost:3000/', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});
+
+const db = mongoose.connection;
+
+db.on('error', (error) => {
+    console.error('MongoDB connection error:', error);
+});
+
+db.once('open', () => {
+    console.log('Connected to MongoDB');
+});
+
+db.on('disconnected', () => {
+    console.log('Disconnected from MongoDB');
+});
+
+process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+        console.log('Mongoose connection is disconnected due to application termination');
+        process.exit(0);
+    });
+});
+
 // for location data on posts
 function DisplayLocations() {
     const { loading, error, data } = useQuery(GET_LOCATIONS);
@@ -51,22 +84,22 @@ function DisplayLocations() {
     ));
 }
 
-export default function App() {
-    return (
-    <div>
-        <h2>My first Apollo app 🚀</h2>
-        <br/>
-        <DisplayLocations />
-    </div>
-    );
-}
+// const App = () => (
+//     <ApolloProvider client={client}>
+//     <CssBaseline />
+//     <BrowserRouter>
+//         <NavBar />
+//         <Main>
+//         <Switch>
+//             <Route exact path='/' component={Welcome} />
+//             <PublicRoute path='/login' component={Login} />
+//             <PublicRoute path='/register' component={Register} />
+//             <PrivateRoute path='/home' component={Home} />
+//             <Route component={NotFound} />
+//         </Switch>
+//         </Main>
+//     </BrowserRouter>
+//     </ApolloProvider>
+// )
 
-export default function App() {
-return (
-    <div>
-    <h2>Live:Interactive</h2>
-    </div>
-);
-}
-
-// export default App;
+export default App
