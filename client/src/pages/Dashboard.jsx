@@ -1,73 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Page from "../components/Page";
-import PostForm from '../components/PostForm';
-import '../PostFormModal.css';
-import { CREATE_POST_MUTATION } from "../graphql/mutations";
-import { GET_ALL_POSTS } from "../graphql/mutations";
-
-import { useMutation, useQuery } from "@apollo/client";
+import { getLostPosts, getFoundPosts } from "../api/api.js"; // Import functions to fetch posts
 
 const headContent = (
   <>
-    <title>Change Me! - Home</title>
-    <meta name="description" content="This is the home page of my app." />
+    <title>Live:Interactive - Dashboard</title>
+    <meta name="description" content="Welcome to the Lost and Found platform." />
   </>
 );
 
-export default function Dashboard() {
-  const [createPostMutation] = useMutation(CREATE_POST_MUTATION);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [filter, setFilter] = useState("all"); // "all", "lost", "found"
 
-  const { loading, error, data } = useQuery(GET_ALL_POSTS);
-
+  // Fetch posts when component mounts
   useEffect(() => {
-    if (!loading && data) {
-      setPosts(data.getAllPosts);
-    }
-  }, [loading, data]);
+    fetchPosts();
+  }, []);
 
-  const handlePostSubmit = async (postData) => {
+  const fetchPosts = async () => {
     try {
-      if (!postData?.image) {
-        console.log(postData);
-        throw Error("No image detected");
+      let fetchedPosts = [];
+      if (filter === "all" || filter === "lost") {
+        const lostPosts = await getLostPosts(); // Function to fetch lost posts from server
+        fetchedPosts = [...fetchedPosts, ...lostPosts];
       }
-
-      postData.image = postData.image.name;
-
-      const response = await createPostMutation({
-        variables: { ...postData },
-      });
-
-      console.log(response);
-
-      setPosts([...posts, response.data.createPost]);
-
-      setIsFormOpen(false);
-
+      if (filter === "all" || filter === "found") {
+        const foundPosts = await getFoundPosts(); // Function to fetch found posts from server
+        fetchedPosts = [...fetchedPosts, ...foundPosts];
+      }
+      setPosts(fetchedPosts);
     } catch (error) {
-      console.error('Error saving post:', error.message);
+      console.error("Error fetching posts:", error);
     }
   };
 
+  const toggleFilter = (selectedFilter) => {
+    setFilter(selectedFilter);
+  };
 
   return (
-    <Page isProtected={true} headContent={headContent}>
-      <div>Dashboard
-        <button onClick={() => setIsFormOpen(true)}>Open Post Form</button>
-        {isFormOpen && <PostForm onSubmit={handlePostSubmit} />}
+    <Page isProtected={false} headContent={headContent}>
+      <div>
+        <h1>Welcome to the Lost and Found Platform!</h1>
         <div>
-          <h2>Posts</h2>
-          <ul>
-            {posts.map(post => (
-              <li key={post._id}>
-                <strong>{post.concertName}</strong>: {post.message}
-              </li>
-            ))}
-          </ul>
+          <button onClick={() => toggleFilter("all")}>All Posts</button>
+          <button onClick={() => toggleFilter("lost")}>Lost Posts</button>
+          <button onClick={() => toggleFilter("found")}>Found Posts</button>
         </div>
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+              <p>{post.time}</p>
+              <p>{post.location}</p>
+              {/* Add other post details as needed */}
+            </li>
+          ))}
+        </ul>
+        <div>
+        <h1>Welcome to the Lost and Found Platform!</h1>
+        <p>
+          Report lost or found items and connect with others to recover your belongings.
+        </p>
+        <div>
+          <Link to="./LostItems">
+            <button>Report Lost Item</button>
+          </Link>
+          <Link to="/FoundItems">
+            <button>Report Found Item</button>
+          </Link>
+        </div>
+      </div>
       </div>
     </Page>
   );
-}
+};
+
+export default Dashboard;

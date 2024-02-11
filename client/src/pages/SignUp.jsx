@@ -21,7 +21,7 @@ const styles = {
 
 const headContent = (
   <>
-    <title>Change Me! - Sign Up</title>
+    <title> - Sign Up</title>
     <meta
       name="description"
       content="Sign Up page for Project-3 Starter Code."
@@ -34,10 +34,10 @@ export default function SignUp() {
   const { isAuthenticated } = useSelector(getUser());
 
   const [formState, setFormState] = useState({
-    firstName: "first",
-    lastName: "last",
-    email: "first_last@gmail.com",
-    password: "123",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (event) => {
@@ -59,20 +59,7 @@ export default function SignUp() {
 
       AuthService.login(data.addUser.token);
     } catch (e) {
-
-      if (error?.graphQLErrors) {
-        const userInputError = error.graphQLErrors.find(
-          (err) => err.extensions.code === "BAD_USER_INPUT"
-        );
-
-        if (userInputError) {
-          //console.error('User input error:', userInputError.message);
-        } else {
-          console.error('Other GraphQL error:', error.message);
-        }
-      } else {
-        //console.error(e);
-      }
+      console.error(e);
     }
   };
 

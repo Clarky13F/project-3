@@ -1,46 +1,51 @@
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./index.css";
+import "./css/index.css";
 import "symbol-observable";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
-import Page404 from "./pages/Page404";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+
+import Home from "./pages/Home.jsx";
+import Page404 from "./pages/Page404.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import LostItems from "./pages/lostitems.jsx";
+import FoundItems from "./pages/founditems.jsx";
+import Profile from "./pages/profile.jsx";
 import App from "./App.jsx";
 
-// defining pages, using createBrowserRouter from React router dom, with routes:
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Page404 />,
+    error: <Page404 />,
     children: [
       {
         index: true,
         element: <Home />,
       },
       {
-        path: "/About",
-        element: <About />
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
-        path: "/profiles/:profileId",
-        element: <Profile />
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: "/Login",
-        element: <Login />
+        path: "/signup",
+        element: <SignUp />,
       },
       {
-        path: "/SignUp",
-        element: <SignUp />
+        path: "/lostitems",
+        element: <LostItems />,
       },
       {
-        path: "/Dashboard",
-        element: <Dashboard />
+        path: "/founditems",
+        element: <FoundItems />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
