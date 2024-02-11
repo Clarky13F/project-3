@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: monospace;
   font-size: 16px;
   background-image: linear-gradient(180deg, red, yellow);
@@ -304,12 +304,12 @@ button::-moz-focus-inner,
 /**
  * Restore the focus styles unset by the previous rule.
  */
-button:-moz-focusring,
+/* button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
-}
+} */
 
 /**
  * Correct the padding in Firefox.
@@ -437,5 +437,4 @@ template {
 /* 
 =================
 END NORMALIZE CSS
-=================
-*/ */
+================= */

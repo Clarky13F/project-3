@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Page from "../components/Page";
 import PostForm from '../components/PostForm';
 import '../PostFormModal.css';
@@ -54,56 +55,83 @@ const styles = {
 
 const headContent = (
   <>
+    <title>Live:Interactive - Dashboard</title>
+    <meta name="description" content="Welcome to the Lost and Found platform." />
     <title>Dashboard</title>
     <meta name="description" content="This is the home page of my app." />
   </>
 );
 
-export default function Dashboard() {
-  const [createPostMutation] = useMutation(CREATE_POST_MUTATION);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [filter, setFilter] = useState("all"); // "all", "lost", "found"
+}
 
-  const { loading, error, data } = useQuery(GET_ALL_POSTS);
-
+  // Fetch posts when component mounts
   useEffect(() => {
-    if (!loading && data) {
-      setPosts(data.getAllPosts);
-    }
-  }, [loading, data]);
+    fetchPosts();
+  }, []);
 
-  const handlePostSubmit = async (postData) => {
+  const fetchPosts = async () => {
     try {
-      if (!postData?.image) {
-        console.log(postData);
-        throw Error("No image detected");
+      let fetchedPosts = [];
+      if (filter === "all" || filter === "lost") {
+        const lostPosts = await getLostPosts(); // Function to fetch lost posts from server
+        fetchedPosts = [...fetchedPosts, ...lostPosts];
       }
-
-      postData.image = postData.image.name;
-
-      const response = await createPostMutation({
-        variables: { ...postData },
-      });
-
-      console.log(response);
-
-      setPosts([...posts, response.data.createPost]);
-
-      setIsFormOpen(false);
-
+      if (filter === "all" || filter === "found") {
+        const foundPosts = await getFoundPosts(); // Function to fetch found posts from server
+        fetchedPosts = [...fetchedPosts, ...foundPosts];
+      }
+      setPosts(fetchedPosts);
     } catch (error) {
-      console.error('Error saving post:', error.message);
+      console.error("Error fetching posts:", error);
     }
   };
 
+  const toggleFilter = (selectedFilter) => {
+    setFilter(selectedFilter);
+  };
   const handlePostClick = (postId) => {
     getPostById({ variables: { postId } });
   };
 
   return (
+    <Page isProtected={false} headContent={headContent}>
+      <div>
+        <h1>Welcome to the Lost and Found Platform!</h1>
     <Page isProtected={true} headContent={headContent}>
       <div style={styles.container}>
         <div>
+          <button onClick={() => toggleFilter("all")}>All Posts</button>
+          <button onClick={() => toggleFilter("lost")}>Lost Posts</button>
+          <button onClick={() => toggleFilter("found")}>Found Posts</button>
+        </div>
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+              <p>{post.time}</p>
+              <p>{post.location}</p>
+              {/* Add other post details as needed */}
+            </li>
+          ))}
+        </ul>
+        <div>
+        <h1>Welcome to the Lost and Found Platform!</h1>
+        <p>
+          Report lost or found items and connect with others to recover your belongings.
+        </p>
+        <div>
+          <Link to="./LostItems">
+            <button>Report Lost Item</button>
+          </Link>
+          <Link to="/FoundItems">
+            <button>Report Found Item</button>
+          </Link>
+        </div>
+      </div>
           <h2>All Posts</h2>
           <button style={styles.addButton} onClick={() => setIsFormOpen(true)}>
             Add New Post
@@ -129,4 +157,8 @@ export default function Dashboard() {
       </div>
     </Page>
   );
+};
+
+export default Dashboard;
+
 };

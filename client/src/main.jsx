@@ -1,17 +1,17 @@
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./index.css";
+import "./css/index.css";
 import "symbol-observable";
 
-import Home from "./pages/Home";
-import Page404 from "./pages/Page404";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Home from "./pages/Home.jsx";
+import Page404 from "./pages/Page404.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Profile from "./pages/Profile.jsx";
+import LostItems from "./pages/lostitems.jsx";
+import FoundItems from "./pages/founditems.jsx";
+import Profile from "./pages/profile.jsx";
 import App from "./App.jsx";
-
-import PostDetail from "./components/PostDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +28,6 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
         path: "/login",
         element: <Login />,
       },
@@ -40,9 +36,17 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "/post/:postId",
-        element: <PostDetail />,
-      }
+        path: "/lostitems",
+        element: <LostItems />,
+      },
+      {
+        path: "/founditems",
+        element: <FoundItems />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
     ],
   },
 ]);
