@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
-import { getUser } from "../../redux/slices/userSlice";
+import { getUser } from "../redux/slices/userSlice";
 
 import Header from "./Header";
 import Footer from "./Footer";

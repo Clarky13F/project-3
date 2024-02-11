@@ -1,8 +1,8 @@
-import AuthService from "../../utils/auth";
+import AuthService from "../utils/auth";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import { setAuthenticatedUser } from "../../redux/slices/userSlice";
+import { setAuthenticatedUser } from "../redux/slices/userSlice";
 
 export default function Auth({ children }) {
   const dispatch = useDispatch();
