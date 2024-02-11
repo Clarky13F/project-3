@@ -1,4 +1,4 @@
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 const { signToken, AuthenticationError, UserInputError } = require('../utils/auth');
 const { dateScalar } = require('./scalar');
 
@@ -12,7 +12,22 @@ const resolvers = {
       return await User.findById(context.user._id)
     },
     getAllPosts: async () => {
-      return await Post.find().populate('user', 'email');
+      return await Post.find().populate('user');
+    },
+    getUserPosts: async (parent, args, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+      return await Post.find({ user: context.user._id }).populate('user');
+    },
+    getPostById: async (parent, { postId }, context) => {
+      if (!context.user) {
+        throw AuthenticationError;
+      }
+      return await Post.findById(postId).populate('user').populate({
+        path: 'comments',
+        populate: { path: 'user' },
+      });
     },
   },
   Mutation: {
@@ -67,6 +82,49 @@ const resolvers = {
           userEmail: populatedPost.user.email,
         };
 
+      } catch (err) {
+        console.error(err);
+        throw UserInputError;
+      }
+    },
+    deletePost: async (parent, { postId }) => {
+      try {
+        const deletedPost = await Post.findByIdAndDelete(postId);
+
+        if (!deletedPost) {
+          throw new Error('Post not found.');
+        }
+
+        return {
+          _id: deletedPost._id,
+        };
+      } catch (error) {
+        console.error('Error deleting post:', error.message);
+        return null;
+      }
+    },
+    addComment: async (parent, { postId, message }, context) => {
+      try {
+        if (!context.user) {
+          throw AuthenticationError;
+        }
+
+        const user = await User.findById(context.user._id);
+        const post = await Post.findById(postId);
+
+        if (!post) {
+          throw new UserInputError('Post not found.');
+        }
+
+        const comment = await Comment.create({
+          message,
+          user: context.user._id,
+        });
+
+        post.comments.push(comment);
+        await post.save();
+
+        return Comment.findById(comment._id).populate('user');
       } catch (err) {
         console.error(err);
         throw UserInputError;

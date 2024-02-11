@@ -2,46 +2,47 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import "symbol-observable";
+
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
 import Page404 from "./pages/Page404";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard.jsx";
+import Profile from "./pages/Profile.jsx";
 import App from "./App.jsx";
 
-// defining pages, using createBrowserRouter from React router dom, with routes:
+import PostDetail from "./components/PostDetail.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Page404 />,
+    error: <Page404 />,
     children: [
       {
         index: true,
         element: <Home />,
       },
       {
-        path: "/About",
-        element: <About />
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
-        path: "/profiles/:profileId",
-        element: <Profile />
+        path: "/profile",
+        element: <Profile />,
       },
       {
-        path: "/Login",
-        element: <Login />
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: "/SignUp",
-        element: <SignUp />
+        path: "/signup",
+        element: <SignUp />,
       },
       {
-        path: "/Dashboard",
-        element: <Dashboard />
-      },
+        path: "/post/:postId",
+        element: <PostDetail />,
+      }
     ],
   },
 ]);
