@@ -44,3 +44,6 @@ const startApolloServer = async () => {
 
 // Call the async function to start the server
 startApolloServer();
+
+// mongodb://atlas-sql-65c1bcc7075b3c6b19797c62-unhpq.a.query.mongodb.net/Interactive:Live?ssl=true&authSource=admin
+// mongodb://localhost:3000/

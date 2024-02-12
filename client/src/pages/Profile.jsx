@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+import React from "react";import Auth from '../components/Auth.jsx';
+import Footer from '../components/Footer.jsx';
+import Header from '../components/Header.jsx';
+import Navbar from '../components/Navbar.jsx';
+import { useQuery } from "@apollo/client";
+=======
 import React, { useState, useEffect } from 'react';
 import Page from "../components/Page";
 
@@ -271,3 +278,4 @@ const Profile = () => {
 };
 
 export default Profile;
+>>>>>>> e5a3fb9e5119af20076d79a161d8a166e26463aa

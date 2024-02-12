@@ -8,8 +8,7 @@ import { Navigate } from "react-router-dom";
 import Page from "../components/Page";
 import AuthService from "../utils/auth";
 
-const styles = {
-  form: {
+const Login = {  form: {
     display: "flex",
     flexDirection: "Column",
     width: "300px",
@@ -21,7 +20,7 @@ const styles = {
 
 const headContent = (
   <>
-    <title>Change Me! - Login</title>
+    <title>Enter - Login</title>
     <meta name="description" content="Login for Project-3 Starter Code." />
   </>
 );
@@ -32,6 +31,7 @@ export default function Login() {
 
   const [formState, setFormState] = useState({
     email: "",
+    userID: "",
     password: "",
   });
 
@@ -66,11 +66,18 @@ export default function Login() {
     <Page isProtected={false} headContent={headContent}>
       <div>Login</div>
       <form style={styles.form} onSubmit={handleFormSubmit}>
-        <input
+      <input
           placeholder="Email"
           name="email"
           type="email"
           value={formState.email}
+          onChange={handleChange}
+        />
+        <input
+          placeholder="userID"
+          name="userID"
+          type="userID"
+          value={formState.userID}
           onChange={handleChange}
         />
         <input
