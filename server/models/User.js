@@ -1,4 +1,3 @@
-// we use the model to create individual documents that have the properties as defined in our schema
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 

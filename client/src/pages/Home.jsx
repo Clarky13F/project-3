@@ -1,46 +1,55 @@
 import Page from "../components/Page";
-import { Link } from 'react-router-dom';
-import { useQuery } from "@apollo/client";
-// import { QUERY_MATCHUPS } from '../utils/queries';
-import Auth from '../components/Auth.jsx';
-import Footer from '../components/Footer.jsx';
-import Header from '../components/Header.jsx';
-import Navbar from '../components/Navbar.jsx';
+//import { useQuery } from "@apollo/client";
 
-const Home = () => {
-//   const [matchupList, setMatchupList] = useState([]);
-//   // the Outlet component will conditionally swap between the different pages according to the URL
-//   const matchupList = data?.matchups || [];
+//import ProfileList from '../components/ProfileList';
+//import ProfileForm from '../components/ProfileForm';
+
+// import { QUERY_PROFILES } from '../utils/queries';
+
 // // how we get info from backend:
-//   const { loading, data } = useQuery(QUERY_MATCHUPS, {
-//     fetchPolicy: "no-cache"
-//   });
+// const Home = () => {
+//   const { loading, data } = useQuery(QUERY_PROFILES);
 
-//   useEffect(() => {
-//     const getMatchupList = async () => {
-//       try {
-//         const res = await getAllMatchups();
-//         if (!res.ok) {
-//           throw new Error('No list of matchups');
-//         }
-//         const matchupList = await res.json();
-//         setMatchupList(matchupList);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     };
-//     getMatchupList();
-//   }, []);
+//   const profiles = data?.profiles || [];
 
-  return (
-<header className="live:interactive-hub">ᗷE IᑎTEᖇᗩᑕTIᐯE ƪ(˘⌣˘)ʃ</header>
-  )};
-  
-export default Home;
+//   return (
+//     <main>
+//       <div className="flex-row justify-center">
+//         <div
+//           className="col-12 col-md-10 mb-3 p-3"
+//           style={{ border: '1px dotted #1a1a1a' }}
+//         >
+//           <ProfileForm />
+//         </div>
 
-{/* 
-  // style={{ border: '1px dotted #1a1a1a' }} */}
+//         <div className="col-12 col-md-10 my-3">
+//           {loading ? (
+//             <div>Loading...</div>
+//           ) : (
+//             <ProfileList
+//               profiles={profiles}
+//               title="Here's the current roster of friends..."
+//             />
+//           )}
+//         </div>
+//       </div>
+//     </main>
+//   );
+// };
 
-{/* <div id="tagLine">
-      <h3>ᗷE IᑎTEᖇᗩᑕTIᐯE ƪ(˘⌣˘)ʃ</h3>
-  </div> */}
+
+const headContent = (
+<>
+<title>Change Me! - Home</title>
+<meta name="description" content="This is the home page of my app." />
+</>
+);
+
+export default function Home() {
+return (
+<Page isProtected={false} headContent={headContent}>
+  <div>Home</div>
+</Page>
+);
+};
+

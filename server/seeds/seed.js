@@ -1,4 +1,4 @@
-const db = require('../config/connection.js');
+const db = require('../config/connection');
 const { School, Class, Professor } = require('../models');
 
 const schoolData = require('./schoolData.json');

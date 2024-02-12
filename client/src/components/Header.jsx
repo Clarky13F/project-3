@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import AuthServices from "../../utils/auth";
+import AuthServices from "../utils/auth";
 import { useSelector } from "react-redux";
-import { getUser } from "../../redux/slices/userSlice";
+import { getUser } from "../redux/slices/userSlice";
 
 const styles = {
   container: {
@@ -37,7 +37,11 @@ export default function Header() {
   return (
     <nav style={styles.container}>
       <Link to={"/"} style={styles.undecoratedLink}>
+<<<<<<< HEAD
+        <h1>Lost and Found</h1>
+=======
         <h1>Project-3 Starter Code</h1>
+>>>>>>> db1b6d88bb16423e0fd9b8046abbf97ee61d6a96
       </Link>
       <div style={styles.buttonDiv}>
         {isAuthenticated && (
@@ -46,6 +50,14 @@ export default function Header() {
           </Link>
         )}
         {isAuthenticated && (
+<<<<<<< HEAD
+          <Link to={"/profile"}>
+            <button style={styles.button}>Profile</button>
+          </Link>
+        )}
+        {isAuthenticated && (
+=======
+>>>>>>> db1b6d88bb16423e0fd9b8046abbf97ee61d6a96
           <button onClick={handleLogout} style={styles.button}>
             Logout
           </button>

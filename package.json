@@ -2,11 +2,11 @@
   "name": "project-3-starter-code",
   "version": "1.0.0",
   "description": "",
-  "main": "./client/server.js",
+  "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
-    "install": "cd server && npm i && cd ./client && npm i",
+    "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
     "render-build": "npm install && npm run build"
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.3",
+    "axios": "^1.6.7",
     "graphql": "^16.8.1",
     "mongoose": "^8.1.1"
   }
